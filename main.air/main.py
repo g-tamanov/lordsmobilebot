@@ -19,7 +19,7 @@ def closeAll():
 def checkCastleMap():
     if exists(
             Template(r"tpl1631627327541.png", record_pos=(-0.473, 0.172), resolution=(1280, 720))) != False and exists(
-            Template(r"tpl1631625805932.png", record_pos=(-0.435, 0.24), resolution=(1280, 720))) == False:
+        Template(r"tpl1631625805932.png", record_pos=(-0.435, 0.24), resolution=(1280, 720))) == False:
         touch(Template(r"tpl1631627327541.png", record_pos=(-0.473, 0.172), resolution=(1280, 720)))
         sleep(2.0)
         touch(Template(r"tpl1631625805932.png", record_pos=(-0.435, 0.24), resolution=(1280, 720)))
@@ -57,6 +57,53 @@ def present():
                     touch(Template(r"tpl1631474427085.png", record_pos=(0.321, -0.179), resolution=(1072, 693)))
     closeAll()
 
+
+# swipe position
+def swipeLeft(count):
+    while count >= 0:
+        swipe((640, 460), vector=[0.4, 0], duration=1, steps=2)
+        count = count - 1
+
+
+def swipeRight(count):
+    while count >= 0:
+        swipe((640, 460), vector=[-0.4, 0], duration=1, steps=2)
+        count = count - 1
+
+
+def swipeUp(count):
+    while count >= 0:
+        swipe((640, 460), vector=[0, -0.4], duration=1, steps=2)
+        count = count - 1
+
+
+def swipeDown(count):
+    while count >= 0:
+        swipe((640, 460), vector=[0, 0.4], duration=1, steps=2)
+        count = count - 1
+
+
+def swipeCenter():
+    count = 4
+    while count > 0:
+        swipe((640, 460), vector=[1, -1], steps=100)
+        count = count - 1
+    sleep(1.5)
+    # count = 2
+    # while count > 0:
+    #     swipe((640, 460), vector=[0, -1], steps=2)
+    #     count = count - 1
+    count = 2
+    while count > 0:
+        swipe((640, 460), vector=[-0.5, 0], steps=100)
+        count = count - 1
+    sleep(1.5)
+    count = 1
+    while count > 0:
+        swipe((640, 460), vector=[0, 0.5], steps=100)
+        count = count - 1
+    sleep(1.0)
+    swipe(Template(r"tpl1632319387976.png", record_pos=(0.013, 0.084), resolution=(1280, 720)), (640, 460),steps=100)
 
 ##loop
 def closeTasks():
@@ -221,9 +268,9 @@ def upgradeAllFarms():
     closeAll()
     if exists(Template(r"tpl1631700026528.png", record_pos=(0.18, 0.028), resolution=(1280, 720))) != False or exists(
             Template(r"tpl1631700045672.png", record_pos=(0.043, -0.005), resolution=(1280, 720))) != False or exists(
-            Template(r"tpl1631700066140.png", record_pos=(0.098, -0.073), resolution=(1280, 720))) != False or exists(
-            Template(r"tpl1631700106204.png", record_pos=(0.058, 0.0), resolution=(1280, 720))) != False and exists(
-            Template(r"tpl1631713263616.png", record_pos=(0.218, 0.054), resolution=(1280, 720))) != False:
+        Template(r"tpl1631700066140.png", record_pos=(0.098, -0.073), resolution=(1280, 720))) != False or exists(
+        Template(r"tpl1631700106204.png", record_pos=(0.058, 0.0), resolution=(1280, 720))) != False and exists(
+        Template(r"tpl1631713263616.png", record_pos=(0.218, 0.054), resolution=(1280, 720))) != False:
         touch(Template(r"tpl1631713263616.png", record_pos=(0.218, 0.054), resolution=(1280, 720)))
         sleep(1)
         upgrade()
@@ -239,7 +286,7 @@ def upgrade():
             sleep(1)
             if exists(Template(r"tpl1631699109306.png", record_pos=(-0.001, -0.164),
                                resolution=(1280, 720))) != False and exists(
-                    Template(r"tpl1631699121522.png", record_pos=(-0.009, -0.015), resolution=(1280, 720))) != False:
+                Template(r"tpl1631699121522.png", record_pos=(-0.009, -0.015), resolution=(1280, 720))) != False:
                 touch(Template(r"tpl1631699121522.png", record_pos=(-0.009, -0.015), resolution=(1280, 720)))
                 while exists(
                         Template(r"tpl1631699180173.png", record_pos=(0.305, -0.136), resolution=(1280, 720))) != False:
@@ -445,39 +492,45 @@ def findResources():
 countChestGran = 5
 # повторение через n действий
 
+swipeCenter()
 ##main
 # ждем пока загружается
-while exists(Template("loading.png")) != False:
-    sleep(2)
-# выполняемо один раз
-closeAll()
-checkCastleMap()
-shelter()
-present()
-# выполняем постоянно
-while True:
-    # проверяем что нам ничего не мешает
-    closeAll()
-    checkCastleMap()
-    sleep(1.0)
-    getHelpFree()
-    sleep(1.0)
-    createT2Horse()
-    sleep(1)
-    upgradeAllFarms()
-    sleep(1)
-    guildHelp()
-    sleep(1.0)
-    openChest()
-    sleep(1.0)
-    closeTasks()
-    sleep(1.0)
-    # счетчик
-    if countChestGran >= 0:
-        # если успешно
-        if getChestGran() == True:
-            countChestGran = countChestGran - 1
-    sleep(1.0)
-    guildGifts()
-    sleep(1.0)
-    findResources()
+# while exists(Template("loading.png")) != False:
+#     sleep(2)
+# # выполняемо один раз
+# closeAll()
+# checkCastleMap()
+# shelter()
+# present()
+# # выполняем постоянно
+# while True:
+#     # проверяем что нам ничего не мешает
+#     closeAll()
+#     checkCastleMap()
+#     sleep(1.0)
+#     getHelpFree()
+#     sleep(1.0)
+#     createT2Horse()
+#     sleep(1)
+#     upgradeAllFarms()
+#     sleep(1)
+#     guildHelp()
+#     sleep(1.0)
+#     openChest()
+#     sleep(1.0)
+#     closeTasks()
+#     sleep(1.0)
+#     # счетчик
+#     if countChestGran >= 0:
+#         # если успешно
+#         if getChestGran() == True:
+#             countChestGran = countChestGran - 1
+#     sleep(1.0)
+#     guildGifts()
+#     sleep(1.0)
+#     findResources()
+
+
+
+
+
