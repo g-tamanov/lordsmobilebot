@@ -60,50 +60,45 @@ def present():
 
 # swipe position
 def swipeLeft(count):
-    while count >= 0:
-        swipe((640, 460), vector=[0.4, 0], duration=1, steps=2)
+    while count > 0:
+        swipe((640, 460), vector=[0.5, 0], duration=1, steps=10)
         count = count - 1
 
 
 def swipeRight(count):
-    while count >= 0:
-        swipe((640, 460), vector=[-0.4, 0], duration=1, steps=2)
+    while count > 0:
+        swipe((640, 460), vector=[-0.5, 0], duration=1, steps=10)
         count = count - 1
 
 
 def swipeUp(count):
-    while count >= 0:
-        swipe((640, 460), vector=[0, -0.4], duration=1, steps=2)
+    while count > 0:
+        swipe((640, 460), vector=[0, -0.5], duration=1, steps=10)
         count = count - 1
 
 
 def swipeDown(count):
-    while count >= 0:
-        swipe((640, 460), vector=[0, 0.4], duration=1, steps=2)
+    while count > 0:
+        swipe((640, 460), vector=[0, 0.5], duration=1, steps=10)
         count = count - 1
 
 
 def swipeCenter():
     count = 4
     while count > 0:
-        swipe((640, 460), vector=[1, -1], steps=100)
+        swipe((640, 460), vector=[1, -1], steps=2)
         count = count - 1
     sleep(1.5)
-    # count = 2
-    # while count > 0:
-    #     swipe((640, 460), vector=[0, -1], steps=2)
-    #     count = count - 1
     count = 2
     while count > 0:
-        swipe((640, 460), vector=[-0.5, 0], steps=100)
+        swipe((640, 460), vector=[-0.5, 0], steps=10)
         count = count - 1
-    sleep(1.5)
+    sleep(1)
     count = 1
     while count > 0:
-        swipe((640, 460), vector=[0, 0.5], steps=100)
+        swipe((640, 460), vector=[0, 0.25], steps=10)
         count = count - 1
-    sleep(1.0)
-    swipe(Template(r"tpl1632319387976.png", record_pos=(0.013, 0.084), resolution=(1280, 720)), (640, 460),steps=100)
+    swipe(Template(r"tpl1632319387976.png", record_pos=(0.013, 0.084), resolution=(1280, 720)), (640, 360),steps=100)
 
 ##loop
 def closeTasks():
@@ -242,6 +237,7 @@ def getChestGran():
 
 def shelter():
     closeAll()
+    swipeCenter()
     if exists(Template(r"tpl1631689496537.png", record_pos=(0.113, -0.175), resolution=(1280, 720))) != False:
         touch(Template(r"tpl1631689496537.png", record_pos=(0.113, -0.175), resolution=(1280, 720)))
         if exists(Template(r"tpl1631689554781.png", record_pos=(0.06, 0.094), resolution=(1280, 720))) != False:
@@ -311,12 +307,16 @@ def isTraning():
 
 def healArmy():
     closeAll()
+    swipeCenter()
+    swipeRight(1)
 
 
 def createT2Horse():
     try:
         if isTraning() == False:
             closeAll()
+            swipeCenter()
+            swipeRight(1)
             touch(Template(r"tpl1631878256316.png", record_pos=(0.119, 0.054), resolution=(1280, 720)))
             sleep(2.0)
             if exists(Template(r"tpl1631530398376.png", record_pos=(0.094, -0.037), resolution=(1280, 720))) == False:
@@ -492,9 +492,9 @@ def findResources():
 countChestGran = 5
 # повторение через n действий
 
-swipeCenter()
+#swipeCenter()
 ##main
-# ждем пока загружается
+# #ждем пока загружается
 # while exists(Template("loading.png")) != False:
 #     sleep(2)
 # # выполняемо один раз
