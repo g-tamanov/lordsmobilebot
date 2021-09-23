@@ -1,4 +1,4 @@
 :loop
-    "AirtestIDE\AirtestIDE" runner "main.air"  --device android://127.0.0.1:5037/127.0.0.1:21533?cap_method=JAVACAP&&ori_method=MINICAPORI&&touch_method=MINITOUCH
+    python "C:\Users\Snow\IdeaProjects\lordsmobilebot\main.air\main.py"
 echo Loop
 goto loop
