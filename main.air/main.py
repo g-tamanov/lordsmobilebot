@@ -7,6 +7,16 @@ import logging
 logging.getLogger("airtest").setLevel(logging.INFO)
 
 auto_setup(__file__)
+##const
+#resources
+stone = 0
+wood = 0
+ore = 0
+gold = 0
+findSwipe=5
+
+##init
+resource = [stone, wood, ore, gold]
 
 
 ##one
@@ -98,7 +108,8 @@ def swipeCenter():
     while count > 0:
         swipe((640, 460), vector=[0, 0.25], steps=10)
         count = count - 1
-    swipe(Template(r"tpl1632319387976.png", record_pos=(0.013, 0.084), resolution=(1280, 720)), (640, 360),steps=100)
+    swipe(Template(r"tpl1632319387976.png", record_pos=(0.013, 0.084), resolution=(1280, 720)), (640, 360), steps=100)
+
 
 ##loop
 def closeTasks():
@@ -406,7 +417,7 @@ def getWood():
         print("Unexpected error:", sys.exc_info()[0])
 
 
-def getIron():
+def getOre():
     try:
         closeAll()
         if exists(Template(r"tpl1631627092588.png", record_pos=(0.044, 0.056), resolution=(1280, 720))) != False:
@@ -435,9 +446,22 @@ def getGold():
 
 # change res
 def getResources():
-    if getStone() == True or getWood() == True or getIron() == True or getGold() == True:
-        return True
-
+    if resource[0] == max(resource):
+        if getStone() == True:
+            resource[1] = resource[1] - 1
+            return True
+    if resource[1] == max(resource):
+        if getWood() == True:
+            resource[1] = resource[1] - 1
+            return True
+    if resource[2] == max(resource):
+        if getOre() == True:
+            resource[2] = resource[2] - 1
+            return True
+    if resource[3] == max(resource):
+        if getGold() == True:
+            resource[3] = resource[3] - 1
+            return True
 
 # find res
 def findResources():
@@ -449,41 +473,44 @@ def findResources():
             sleep(5.0)
             touch(Template(r"tpl1631627304207.png", record_pos=(-0.474, 0.171), resolution=(1280, 720)))
 
-            n = 5
+            if getResources() == True:
+                checkCastleMap()
+                return None
             i = 0
-            while (i < n):
-                swipe((640, 460), vector=[-0.4, 0], duration=1, steps=2)
+            while (i < findSwipe):
+                swipeRight(1)
                 i = i + 1
                 if getResources() == True:
-                    touch(Template(r"tpl1631627327541.png", record_pos=(-0.473, 0.172), resolution=(1280, 720)))
+                    checkCastleMap()
                     return None
             touch(Template(r"tpl1631472050044.png", record_pos=(0.316, -0.144), resolution=(1072, 693)))
             i = 0
-            while (i < n):
-                swipe((640, 460), vector=[0.4, 0], duration=1, steps=2)
+            while (i < findSwipe):
+                swipeLeft(1)
                 i = i + 1
                 if getResources() == True:
+                    checkCastleMap()
                     return None
             touch(Template(r"tpl1631472050044.png", record_pos=(0.316, -0.144), resolution=(1072, 693)))
             i = 0
-            while (i < n):
-                swipe((640, 460), vector=[0, -0.4], duration=1, steps=2)
+            while (i < findSwipe):
+                swipeUp(1)
                 i = i + 1
                 if getResources() == True:
-                    touch(Template(r"tpl1631627327541.png", record_pos=(-0.473, 0.172), resolution=(1280, 720)))
+                    checkCastleMap()
                     return None
             touch(Template(r"tpl1631472050044.png", record_pos=(0.316, -0.144), resolution=(1072, 693)))
             i = 0
-            while (i < n):
-                swipe((640, 460), vector=[0, 0.4], duration=1, steps=2)
+            while (i < findSwipe):
+                swipeDown(1)
                 i = i + 1
                 if getResources() == True:
-                    touch(Template(r"tpl1631627327541.png", record_pos=(-0.473, 0.172), resolution=(1280, 720)))
+                    checkCastleMap()
                     return None
-            touch(Template(r"tpl1631472050044.png", record_pos=(0.316, -0.144), resolution=(1072, 693)))
             closeAll()
-            touch(Template(r"tpl1631627327541.png", record_pos=(-0.473, 0.172), resolution=(1280, 720)))
-            touch(Template(r"tpl1631469213381.png", record_pos=(-0.425, 0.277), resolution=(1072, 693)))
+            checkCastleMap()
+            #повышаем мин значение веса ресурса если ничего не нашли
+            resource[resource.index(min(resource))]=resource[resource.index(min(resource))]+1
     except:
         print("Unexpected error:", sys.exc_info()[0])
 
@@ -492,7 +519,7 @@ def findResources():
 countChestGran = 5
 # повторение через n действий
 
-#swipeCenter()
+# swipeCenter()
 ##main
 # #ждем пока загружается
 # while exists(Template("loading.png")) != False:
